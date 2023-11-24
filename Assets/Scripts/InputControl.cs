@@ -5,14 +5,20 @@ using UnityEngine.InputSystem;
 
 public class InputControl : CharacterControl
 {
+    //private float _timeSinceLastJump = float.MaxValue;
+    //private float _timeSinceLastAttack = float.MaxValue;
+    //private float _timeSinceLastSlide = float.MaxValue;
+    private Animator animator;
     private Camera _camera;
+    Vector2 move;
     private void Awake()
     {
+        animator = GetComponent<Animator>();
         _camera = Camera.main;
     }
     public void OnMove(InputValue value)
     {
-        Vector2 move = value.Get<Vector2>().normalized;
+        move = value.Get<Vector2>().normalized;
         CallMoveEvent(move);
     }
 
@@ -29,7 +35,89 @@ public class InputControl : CharacterControl
 
     public void OnAttack(InputValue value)
     {
-        CallAttackEvent();
+        if (value.isPressed)
+        {
+            animator.SetBool("isAttack", true);
+        }
+        else
+        {
+            animator.SetBool("isAttack", false);
+        }
     }
-    
+
+    public void OnJump(InputValue value)
+    {
+        if(value.isPressed)
+        {
+            animator.SetBool("isJump", true);
+        }
+        else
+        {
+            animator.SetBool("isJump", false);
+        }
+    }
+    public void OnSlide(InputValue value)
+    {
+        if(value.isPressed)
+        {
+            animator.SetBool("isSlide", true);
+        }
+        else
+        {
+            animator.SetBool("isSlide", false);
+        }
+    }
+
+    private void Update()
+    {
+        if (move.magnitude > 0)
+        {
+            animator.SetBool("isMove", true);
+        }
+        else
+        {
+            animator.SetBool("isMove", false);
+        }
+
+        //HandleJumpDelay();
+        //HandleAttackDelay();
+        //HandleSlideDelay();
+    }
+    //private void HandleJumpDelay()
+    //{
+    //    if (_timeSinceLastJump <= .5f)
+    //    {
+    //        _timeSinceLastJump += Time.deltaTime;
+    //    }
+    //    else if (animator.GetBool("isJump"))
+    //    {
+    //        _timeSinceLastJump = 0f;
+    //        CallJumpEvent();
+    //    }
+    //}
+    //private void HandleSlideDelay()
+    //{
+    //    if (_timeSinceLastSlide <= 1f)
+    //    {
+    //        _timeSinceLastSlide += Time.deltaTime;
+    //    }
+    //    else if (animator.GetBool("isSlide"))
+    //    {
+    //        _timeSinceLastSlide = 0f;
+    //        CallSlideEvent();
+    //    }
+    //}
+    //private void HandleAttackDelay()
+    //{
+    //    if (_timeSinceLastAttack <= .3f)
+    //    {
+    //        _timeSinceLastAttack += Time.deltaTime;
+    //    }
+    //    else if (animator.GetBool("isAttack"))
+    //    {
+    //        _timeSinceLastAttack = 0f;
+    //        CallAttackEvent();
+    //    }
+    //}
+
 }

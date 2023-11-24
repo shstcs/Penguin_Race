@@ -9,9 +9,11 @@ public class CharacterControl : MonoBehaviour
     public event Action<Vector2> OnMoveEvent;
     public event Action<Vector2> OnLookEvent;
     public event Action OnAttackEvent;
+    public event Action OnJumpEvent;
+    public event Action OnSlideEvent;
+  
     public void CallMoveEvent(Vector2 move)
     {
-        Debug.Log("¿òÁ÷ÀÓ");
         OnMoveEvent?.Invoke(move);
     }
 
@@ -23,5 +25,15 @@ public class CharacterControl : MonoBehaviour
     public void CallAttackEvent()
     {
         OnAttackEvent?.Invoke();
+    }
+
+    public void CallJumpEvent()
+    {
+        OnJumpEvent?.Invoke();
+    }
+
+    public void CallSlideEvent()
+    {
+        OnSlideEvent?.Invoke();
     }
 }
