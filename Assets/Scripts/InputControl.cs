@@ -61,10 +61,12 @@ public class InputControl : CharacterControl
         if(value.isPressed)
         {
             animator.SetBool("isSlide", true);
+            animator.SetBool("isRun", true);
         }
         else
         {
             animator.SetBool("isSlide", false);
+            animator.SetBool("isRun", false);
         }
     }
 
@@ -72,11 +74,11 @@ public class InputControl : CharacterControl
     {
         if (move.magnitude > 0)
         {
-            animator.SetBool("isMove", true);
+            animator.SetBool("isWalk", true);
         }
         else
         {
-            animator.SetBool("isMove", false);
+            animator.SetBool("isWalk", false);
         }
 
         //HandleJumpDelay();

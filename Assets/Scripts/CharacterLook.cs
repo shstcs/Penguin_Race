@@ -10,7 +10,7 @@ public class CharacterLook : MonoBehaviour
 
     private void Awake()
     {
-        _playerSprite = player.GetComponentInChildren<SpriteRenderer>();
+        SetPlayer();
         _control = player.GetComponent<CharacterControl>();
     }
 
@@ -28,5 +28,16 @@ public class CharacterLook : MonoBehaviour
     {
         float rotZ = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         _playerSprite.flipX = Mathf.Abs(rotZ) > 90;
+    }
+    public void SetPlayer()
+    {
+        if (PlayerPrefs.GetString("Character") == "Penguin")
+        {
+            _playerSprite = player.transform.Find("penguin").GetComponent<SpriteRenderer>();
+        }
+        else
+        {
+            _playerSprite = player.transform.Find("astronaut").GetComponent<SpriteRenderer>();
+        }
     }
 }
