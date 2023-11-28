@@ -11,7 +11,8 @@ public class CharacterControl : MonoBehaviour
     public event Action OnAttackEvent;
     public event Action OnJumpEvent;
     public event Action OnSlideEvent;
-  
+    public event Action OnSpeakEvent;
+
     public void CallMoveEvent(Vector2 move)
     {
         OnMoveEvent?.Invoke(move);
@@ -35,5 +36,10 @@ public class CharacterControl : MonoBehaviour
     public void CallSlideEvent()
     {
         OnSlideEvent?.Invoke();
+    }
+
+    public void CallSpeakEvent()
+    {
+        OnSpeakEvent?.Invoke();
     }
 }

@@ -10,18 +10,20 @@ public class ShowMembers : MonoBehaviour
 
     public void MemberCheck()
     {
-        memberText.text = PlayerPrefs.GetString("name") + "\n";
+        memberText.text = "∑π¿Ãº≠" + "\n";
     }
 
     public void ShowWindow()
     {
         MemberCheck();
-        memberText.text = PlayerPrefs.GetString("name") + "\n";
+        memberText.text += PlayerPrefs.GetString("name") + "\n";
         memberWindow.SetActive(true);
+        Time.timeScale = 0;
     }
 
     public void CloseWindow()
     {
+        Time.timeScale = 1;
         memberWindow.SetActive(false);
     }
 }

@@ -5,9 +5,6 @@ using UnityEngine.InputSystem;
 
 public class InputControl : CharacterControl
 {
-    //private float _timeSinceLastJump = float.MaxValue;
-    //private float _timeSinceLastAttack = float.MaxValue;
-    //private float _timeSinceLastSlide = float.MaxValue;
     private Animator animator;
     private Camera _camera;
     Vector2 move;
@@ -68,6 +65,11 @@ public class InputControl : CharacterControl
             animator.SetBool("isSlide", false);
             animator.SetBool("isRun", false);
         }
+    }
+
+    public void OnSpeak(InputValue value)
+    {
+        CallSpeakEvent();
     }
 
     private void Update()

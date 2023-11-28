@@ -34,9 +34,5 @@ public class GameStart : MonoBehaviour
         nameCheckText.SetActive(false);
     }
 
-    private void Test()
-    {
-        nameCheckText.SetActive(true);
-    }
 
 }

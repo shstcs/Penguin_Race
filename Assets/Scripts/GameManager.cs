@@ -4,15 +4,20 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private Text nameText;
+    [SerializeField] private TMP_Text nameText;
     [SerializeField] private TMP_Text TimeText;
     [SerializeField] private GameObject player;
+    [SerializeField] private GameObject _npc;
+    [SerializeField] private GameObject ChatWindow;
+    [SerializeField] private GameObject CanChatWindow;
     private CharacterControl _control;
     private Animator ani;
     private Camera _camera;
+    private bool isSpeak = false;
 
     private void Awake()
     {
@@ -22,6 +27,7 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
+        _control.OnSpeakEvent += ConverseWithNPC;
         _control.OnMoveEvent += MoveAnimation;
         SetName();
         SetCharacter();
@@ -32,6 +38,18 @@ public class GameManager : MonoBehaviour
         Vector3 cameraPos = new Vector3(player.transform.position.x, player.transform.position.y, _camera.transform.position.z);
         _camera.transform.position = cameraPos;
         TimeText.text = DateTime.Now.Hour.ToString() + " : " + DateTime.Now.Minute.ToString();
+        nameText.transform.position = player.transform.position + new Vector3(0.2f, 1, 0);
+        float distancePlayerToNPC = Vector3.Distance(player.transform.position, _npc.transform.position);
+        if (distancePlayerToNPC < 3f)
+        {
+            CanChatWindow.gameObject.SetActive(true);
+            isSpeak = true;
+        }
+        else
+        {
+            CanChatWindow.gameObject.SetActive(false);
+            isSpeak = false;
+        }
     }
 
     private void MoveAnimation(Vector2 move)
@@ -44,7 +62,7 @@ public class GameManager : MonoBehaviour
         nameText.text = PlayerPrefs.GetString("name");
     }
 
-    public void SetCharacter()
+    private void SetCharacter()
     {
         if (PlayerPrefs.GetString("Character") == "Penguin")
         {
@@ -59,6 +77,15 @@ public class GameManager : MonoBehaviour
             player.transform.Find("astronaut").gameObject.SetActive(true);
         }
     }
-    
+
+    public void ConverseWithNPC()
+    {
+        if (isSpeak)
+        {
+            ChatWindow.SetActive(true);
+            CanChatWindow.gameObject.SetActive(false);
+            Time.timeScale = 0.0f;
+        }
+    }
 
 }

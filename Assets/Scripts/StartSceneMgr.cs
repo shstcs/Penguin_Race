@@ -7,7 +7,6 @@ public class StartSceneMgr : MonoBehaviour
 {
     [SerializeField] private GameObject CharacterSelectWindow;
     [SerializeField] private Image CharacterImage;
-    private string ImagePath;
     public void ShowSelectWindow()
     {
         CharacterSelectWindow.SetActive(true);

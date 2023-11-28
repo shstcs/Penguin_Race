@@ -20,9 +20,11 @@ public class ReCharacter : MonoBehaviour
     public void ShowCharacterWindow()
     {
         characterChangeWindow.SetActive(true);
+        Time.timeScale = 0.0f;
     }
     public void CloseCharacterWindow()
     {
+        Time.timeScale = 1.0f;
         characterChangeWindow.SetActive(false);
     }
 
