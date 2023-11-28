@@ -19,6 +19,11 @@ public class InputControl : CharacterControl
         CallMoveEvent(move);
     }
 
+    public void OnSide(InputValue value)
+    {
+
+    }
+
     public void OnLook(InputValue value)
     {
         Vector2 newAim = value.Get<Vector2>();

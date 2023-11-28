@@ -27,11 +27,30 @@ public class CharacterMove : MonoBehaviour
     private void FixedUpdate()
     {
         ApplyMove(_movementDirection);
+
     }
 
     public void Move(Vector2 move)
     {
         _movementDirection = move;
+        if (move.x > 0.9f || move.x < -0.9f)
+        {
+            _animator.SetBool("isSide", true);
+            _animator.SetBool("isUp", false);
+            _animator.SetBool("isDown", false);
+        }
+        else if (move.y > 0.9f)
+        {
+            _animator.SetBool("isSide", false);
+            _animator.SetBool("isUp", true);
+            _animator.SetBool("isDown", false);
+        }
+        else if (move.y < -0.9f)
+        {
+            _animator.SetBool("isSide", false);
+            _animator.SetBool("isUp", false);
+            _animator.SetBool("isDown", true);
+        }
     }
 
     private void ApplyMove(Vector2 move)
