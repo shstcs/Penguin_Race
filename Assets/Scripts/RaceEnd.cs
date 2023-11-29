@@ -7,7 +7,8 @@ public class RaceEnd : Race
 {
     [SerializeField] private AudioSource audioSource;
     private AudioClip normalMusic;
-
+    [SerializeField] private GameManager gameManager;
+    private Race race;
     [SerializeField] private GameObject RaceTime;
     [SerializeField] private GameObject RecordWindow;
     [SerializeField] ParticleSystem _particleSystem1;
@@ -24,13 +25,18 @@ public class RaceEnd : Race
 
     private void Start()
     {
+        race = gameManager.race;
         isRacingEnd += ShowRecord;
         isRacingEnd += ParticlePlay;
         isRacingEnd += EndRaceMusic;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        CallRacingEnd();
+        if (race.isRacing)
+        {
+            race.SetisRacing(false);
+            CallRacingEnd();
+        }
     }
 
     public void ParticlePlay()
@@ -64,9 +70,12 @@ public class RaceEnd : Race
         audioSource.Play();
     }
 
-    // Update is called once per frame
     void Update()
     {
+        if (race.isRacing)
+        {
+            //Debug.Log("end¿¡¼­´Â : " + race.isRacing);
+        }
         
     }
 }

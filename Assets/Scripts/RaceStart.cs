@@ -7,6 +7,8 @@ public class RaceStart : Race
 {
     [SerializeField] private GameObject RaceTime;
     [SerializeField] private AudioSource audioSource;
+    [SerializeField] private GameManager gameManager;
+    private Race race;
     private AudioClip raceMusic;
     private TMP_Text raceText;
     private TMP_Text bestRaceText;
@@ -20,13 +22,14 @@ public class RaceStart : Race
     }
     private void Start()
     {
+        race = gameManager.race;
         isRacingStart += ShowRecord;
         isRacingStart += StartRaceMusic;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        race.SetisRacing(true);
         CallRacingStart();
-        
     }
 
     private void ShowRecord()
@@ -45,9 +48,10 @@ public class RaceStart : Race
 
     private void Update()
     {
-        if(isRacing)
+        if(race.isRacing)
         {
             raceText.text = (Time.time - startTime).ToString("N2");
+            //Debug.Log("start¿¡¼­´Â : "+race.isRacing);
         }
     }
 }

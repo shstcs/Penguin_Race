@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Race : MonoBehaviour
 {
-    protected bool isRacing = false;
+    public bool isRacing { get; set; }
     protected float curRecord;
     protected float bestRecord = float.MaxValue;
     protected event Action isRacingStart;
@@ -13,12 +13,14 @@ public class Race : MonoBehaviour
 
     public void CallRacingStart()
     {
-        isRacing = true;
         isRacingStart?.Invoke();
     }
     public void CallRacingEnd()
     {
-        isRacing = false;
         isRacingEnd?.Invoke();
+    }
+    public void SetisRacing(bool value)
+    {
+        isRacing = value;
     }
 }
